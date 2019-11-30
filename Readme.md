@@ -1,6 +1,6 @@
 #Assignment 1
 Class: Monom.
-Constructors: 
+Constructors:
 Monom(double a, double b):
 This constructor will initial a monom with the values given inside the arguments while a is our coefficient and b is our power.
 
@@ -44,9 +44,6 @@ Methods:
 Public double f(double x):
 This method returns the values of y for a certain x.
 We used an Iteretor of Monoms in order to go over our Array List(Polynom).
-
-
-
 
 Public void add(Polynom_able p1):
 This method gets an Polynom_able as an argument and we used an iteretor in order to go over the Array List (Polynom) and in each iteration we add the current monom.
@@ -99,8 +96,6 @@ Private void removeZero():
 This method moves over the polynom and checks two things:
 1.If this is the zero polynom do nothing.
 2.If the polynom contains more then one monom and one of them is the zero monom, remove him.
-
-
 
 Private void init_from_string(String s):
 This private method will initial a polynom from a given String. allowed chars are: 0,1,2,3,4,5,6,7,8,9,+,-,.,x,^ No spaces allowed. When a is a real number and b is a positive integer (natural) number. a can be positive or negative , b must be
