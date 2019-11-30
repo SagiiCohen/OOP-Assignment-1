@@ -4,7 +4,7 @@ Constructors:
 Monom(double a, double b):
 This constructor will initial a monom with the values given inside the arguments while a is our coefficient and b is our power.
 
-Monom(Monom mot):
+Monom(Monom ot):
 This constructor will initial a monom from a given monom.
 
 Monom(String s): 
