@@ -13,6 +13,11 @@ import java.util.Iterator;
  *
  */
 public class Polynom implements Polynom_able{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** A default constructor that initialize an empty array list. */
 	public Polynom() {
 		poly = new ArrayList<>();
@@ -25,7 +30,7 @@ public class Polynom implements Polynom_able{
 	public Polynom(String str) {
 		this.poly = new ArrayList<>();
 		Polynom ans = new Polynom();
-		ans.init_from_string(str);
+		ans.my_init_from_string(str);
 		this.add(ans);
 	}
 	/** This method returns the values of y for a certain x. */
@@ -77,7 +82,7 @@ public class Polynom implements Polynom_able{
 		}
 		while (it.hasNext()) {
 			hold = it.next();
-			temp = hold.copy();
+			temp = hold.my_copy();
 			if (temp.get_power() == m1.get_power()) {
 				temp.add(m1);
 				it.remove();
@@ -173,12 +178,12 @@ public class Polynom implements Polynom_able{
 		if (thist.hasNext() && p1t.hasNext()) {
 			while (thist.hasNext()) {
 				Monom x = thist.next();
-				temp = x.copy();
+				temp = x.my_copy();
 				Iterator<Monom> p1t2 = p1.iteretor();
 				while (p1t2.hasNext()) {
-					temp = x.copy();
+					temp = x.my_copy();
 					Monom y = p1t2.next();
-					p1temp = y.copy();
+					p1temp = y.my_copy();
 					temp.multiply(p1temp);
 					ans.add(temp);
 					p1temp = zero;
@@ -218,20 +223,24 @@ public class Polynom implements Polynom_able{
 	 * @param p1 the polynom that we compere with.
 	 * @return true if this polynom represents the same function ans p1.
 	 */
-	public boolean equals(Polynom_able p1) 
+	public boolean equals(Object p1) 
 	{
-		if (size(p1) != this.poly.size())
-			return false;
-		Iterator<Monom> p1It = p1.iteretor();
-		Iterator<Monom> thisIt = this.iteretor();
-		while (p1It.hasNext() && thisIt.hasNext()) 
+		if(p1 instanceof Polynom)
 		{
-			Monom m1, m2 = new Monom();
-			m1 = thisIt.next();
-			m2 = p1It.next();
-			if (!(m1.equals(m2)))return false;// if m1 and m2 are different return false.
+			if (size((Polynom_able) p1) != this.poly.size())
+				return false;
+			Iterator<Monom> p1It = ((Polynom) p1).iteretor();
+			Iterator<Monom> thisIt = this.iteretor();
+			while (p1It.hasNext() && thisIt.hasNext()) 
+			{
+				Monom m1, m2 = new Monom();
+				m1 = thisIt.next();
+				m2 = p1It.next();
+				if (!(m1.equals(m2)))return false;// if m1 and m2 are different return false.
+			}
 		}
-		return true;
+		else return false;
+			return true;
 	}
 	/** This method returns true if this polynom contains only the zero monom. */
 	public boolean isZero() {
@@ -348,6 +357,14 @@ public class Polynom implements Polynom_able{
 		}
 		return ans;
 	}
+	/** This method create a new polynom from String and return him as function */
+	@Override
+	public function initFromString(String s) 
+	{
+		Polynom p1 = new Polynom();
+		p1.my_init_from_string(s);
+		return p1;
+	}
 	// ******* Private Methods and Data *************
 	private ArrayList<Monom> poly;
 	private final Monom_Comperator monomcmp = new Monom_Comperator();
@@ -382,7 +399,7 @@ public class Polynom implements Polynom_able{
 	 *
 	 * @param s The string of a polynom we receive.
 	 */
-	private void init_from_string(String s) {
+	private void my_init_from_string(String s) {
 		Polynom p = new Polynom();
 		int monoms = 0;
 		int index = 0;

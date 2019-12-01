@@ -19,18 +19,23 @@ Public void multiply(Monom d):
 First, we multiply between the two monoms coefficients.
 Then we check if either of the monoms power is equal to 0, if so, we don’t change the power. If its not equal to 0, then we add between the monoms power.
 
-
-
-
 Public String toString():
 First, we check if our coefficient is equal to 1. If so, we set our string variable ‘ans’ to ‘x^’+power. the same thing we do with 
 -1, except now we will output ‘-x^’+power. In case the power is 0, we will only output our coefficient. In case the power is 1, we will output our coefficient+’x’. in any other case we will simply output the string: coefficient +’x^’ + power.
 
-Public boolean equals(Monom m):
-We check if Monom ‘m’ coefficient and power is equal to our Monom coefficient and power. If so, we return true. Else we return false.
+Public boolean equals(Object m):
+First we check if 'm' is an instance of Monom. 
+If so, we check if Monom 'm' coefficient and power is equal to our Monom coefficient and power.
+If so, we return true. else we return false.
 
-Public Monom copy():
-This this function creates a deep copy of a monom.
+Public Monom my_copy():
+This this method creates a deep copy of a monom.
+
+Public function copy():
+This method calls to my_copy() and creates a deep copy of the monom and return him as function.
+
+Public function initFromString(String s):
+This method creates a new monom and return him as function.
 
 Class: Polynom.
 Constructors:
@@ -67,8 +72,9 @@ Public void multiply(Monom m1):
 This method will multiply a polynom by a given monom.
 It uses the method multiply from the Monom class for each monom in our polynom.
 
-Public boolean equals(Polynom_able p1):
-This method test if (this) polynom Is logically equal to p1.
+Public boolean equals(Object p1):
+This method first checks if p1 is an instance of Polynom.
+If so, test if (this) polynom Is logically equal to p1.
 Return false in case they are different.
 
 Public boolean isZero():
@@ -91,13 +97,16 @@ then x1 else the function returns area = 0. return the approximated area above t
 Public String toString():
 This method prints the polynom as: a0+a1x+a2x^2+…+anx^n.
 
+Public function initFromString(String s):
+This method calls a private method called my_init_from_string which creates a new polynom from the given String and return him as polynom, then we return the polynom as a function.
+
 Private Methods:
 Private void removeZero():
 This method moves over the polynom and checks two things:
 1.If this is the zero polynom do nothing.
 2.If the polynom contains more then one monom and one of them is the zero monom, remove him.
 
-Private void init_from_string(String s):
+Private void my_init_from_string(String s):
 This private method will initial a polynom from a given String. allowed chars are: 0,1,2,3,4,5,6,7,8,9,+,-,.,x,^ No spaces allowed. When a is a real number and b is a positive integer (natural) number. a can be positive or negative , b must be
 positive. Constructing a new Polynom with string: The string must be written as such:"ax^b+a1x^b1..." No spaces are allowed. The program will detect invalid input and throw a runtime exception.
 

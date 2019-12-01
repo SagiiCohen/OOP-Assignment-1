@@ -9,6 +9,10 @@ import java.util.Comparator;
  */
 public class Monom implements function
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final Monom ZERO = new Monom(0,0);
 	public static final Monom MINUS1 = new Monom(-1,0);
 	public static final double EPSILON = 0.0000001;
@@ -86,7 +90,7 @@ public class Monom implements function
 	{
 		this.set_coefficient(d.get_coefficient() * this.get_coefficient()); //multiplying between the two monoms coefficients.
 		if(this.get_power() != 0 || d.get_power() != 0) this.set_power(this.get_power() + d.get_power()); //in case either of the monoms power
-																										  //is not equal to 0.
+		//is not equal to 0.
 	}
 	public String toString() {
 		String ans = "";
@@ -97,15 +101,37 @@ public class Monom implements function
 		else ans = this.get_coefficient()+"x^"+this.get_power(); 
 		return ans;
 	}
-	public boolean equals(Monom m) //checking if two monoms are equal.
+	public boolean equals(Object m) //checking if two monoms are equal.
 	{
-		if(m.get_power() == this.get_power())
+		if(m instanceof Monom)
 		{
-			if(m.get_coefficient() == this.get_coefficient()) return true;
-			else if(m.get_coefficient() + EPSILON > this.get_coefficient() && m.get_coefficient() < this.get_coefficient()) return true;
-			else if(m.get_coefficient() - EPSILON < this.get_coefficient() && m.get_coefficient() > this.get_coefficient()) return true;
+			if(((Monom) m).get_power() == this.get_power())
+			{
+				if(((Monom) m).get_coefficient() == this.get_coefficient()) return true;
+				else if(((Monom) m).get_coefficient() + EPSILON > this.get_coefficient() && ((Monom) m).get_coefficient() < this.get_coefficient()) return true;
+				else if(((Monom) m).get_coefficient() - EPSILON < this.get_coefficient() && ((Monom) m).get_coefficient() > this.get_coefficient()) return true;
+			}
 		}
 		return false; //return false we the coefficient and power are not equals.
+	}
+
+	/** This method creates a deep copy of a monom. */
+	public Monom my_copy() 
+	{
+		Monom p = new Monom(this._coefficient, this._power);
+		return p;
+	}
+	/** This method creates a deep copy of monom and return him as function */ 
+	public function copy()
+	{
+		return this.my_copy();
+	}
+	/** This method creates a monom from string and return him as function */
+	@Override
+	public function initFromString(String s) 
+	{
+		Monom m = new Monom(s);
+		return m;
 	}
 	// you may (always) add other methods.
 
@@ -125,11 +151,4 @@ public class Monom implements function
 		this.set_coefficient(0);
 		this.set_power(0);
 	}
-	
-	/** This function creates a deep copy of a monom. */
-	public Monom copy() {
-		Monom p = new Monom(this._coefficient, this._power);
-		return p;
-	}
-	
 }
