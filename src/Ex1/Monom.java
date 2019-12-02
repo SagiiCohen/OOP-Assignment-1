@@ -97,7 +97,6 @@ public class Monom implements function
 		if(this.get_coefficient() == 1.0) ans = "x^"+this.get_power(); //no real number attached to 'x'
 		else if(this.get_coefficient() == -1.0) ans = "-x^"+this.get_power(); //only '-' attached to 'x'	
 		else if(this.get_power() == 0) ans = this.get_coefficient()+""; //in case power is 0
-		else if(this.get_power() == 1) ans = this.get_coefficient()+"x"; //in case power is 1
 		else ans = this.get_coefficient()+"x^"+this.get_power(); 
 		return ans;
 	}
