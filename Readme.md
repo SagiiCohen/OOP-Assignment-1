@@ -113,4 +113,32 @@ positive. Constructing a new Polynom with string: The string must be written as 
 Private int size(Polynom_able p1):
 This function gets polynom_able and return the amount of monoms in the polynom.
 
+Class: ComplexFunction.
+Constructors:
+ComplexFunction(function f1):
+This constructor gets a function and initiate a new complex function object while the left side is the f1 given and right side set to null and the operation set to none.
+
+ComplexFunction(String operation, function f1, function f2):
+This constructor gets two functions and an operation, f1 is set to the left side of the complex function object and f2 is set to the right side. the operation given is set to the one suited to him from the Enum class Operation.
+
+Methods:
+public double f(double x):
+This method gets a double x as an argument and then send this x to the correct Complex Function operation, lets say the operation set for this complex function instance is plus, then we return the left_side.f(x) + right_side.f(x) and the same applies to the rest of the operations.
+
+public function initFromString(String text):
+This method initiate an function from a given string, first we change the entire text to lower case then we remove spaces because in some of the given tests the text examples have spaces in them. then we remove the prefix of "f(x)= " which also was presented in the example tests. after we done with this changes we go over the algorithm, first we want to know where is the exact comma that separate the two functions, once we have that info we can send the left & right side in a recursive way to initFromString again, each with his correct string. when the recursive algorithm is done we get the result we wanted which is a function that have an operation and a left & right side which each of them represent a function.
+
+public boolean equals(Object obj):
+This equals method gets an object as an argument. if the given object is an instance of complex function we check both sides. if they are equal we return true, else false. if the given object is an instance of monom or polynom we check the possibility of "plus(x,x) == 2x" or "mul(x,x) == x^2" in those cases the function will return true. but in cases of a big complex function there is no real way to check every single value of x, so we will return false.
+
+Methods plus,mul,div,max,min,comp:
+we call on our private method add_new_function(function f1, String operation) which will only add new function, if the right side is null she will add the given function to it. if its not null she will make the current complex function as the new left side, and the given function as the right side.
+
+public String toString():
+This method will return a string that represent this complex function we will take this.operation and this.left and this.right, 
+in case the operation is Times we will return "mul", in case the operation is Divide we will return "div". and we return every thing in lower cases.
+
+Methods right,left,getOp: 
+This methods are a simple get methods.
+
 Author: Sagi Cohen.
