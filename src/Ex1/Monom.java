@@ -57,7 +57,7 @@ public class Monom implements function
 		if(s.contains("x") == true) //'x' is in the string.
 		{
 			coeff = s.substring(0, s.indexOf("x")); //take the chars before the "x".
-			if(coeff.equals("")) doubleCoeff = 1.0; //there is no real number attached to "x".
+			if(coeff.equals("") || coeff.equals("+")) doubleCoeff = 1.0; //there is no real number attached to "x".
 			else if(coeff.charAt(0) == '-' && coeff.length() == 1) doubleCoeff = -1.0; //only '-' appears
 			else doubleCoeff = Double.parseDouble(coeff); //converting the chars into doubles.
 			if(s.contains("^") == true) //'^' is in the string.
@@ -94,9 +94,7 @@ public class Monom implements function
 	}
 	public String toString() {
 		String ans = "";
-		if(this.get_coefficient() == 1.0) ans = "x^"+this.get_power(); //no real number attached to 'x'
-		else if(this.get_coefficient() == -1.0) ans = "-x^"+this.get_power(); //only '-' attached to 'x'	
-		else if(this.get_power() == 0) ans = this.get_coefficient()+""; //in case power is 0
+		if(this.get_power() == 0) ans = this.get_coefficient()+""; //in case power is 0
 		else ans = this.get_coefficient()+"x^"+this.get_power(); 
 		return ans;
 	}

@@ -30,6 +30,7 @@ public class Polynom implements Polynom_able{
 	public Polynom(String str) {
 		this.poly = new ArrayList<>();
 		Polynom ans = new Polynom();
+		str = remove_spaces(str);
 		ans.my_init_from_string(str);
 		this.add(ans);
 	}
@@ -512,5 +513,15 @@ public class Polynom implements Polynom_able{
 	public Iterator<Monom> iteretor() {
 		Iterator<Monom> it = poly.iterator();
 		return it;
+	}
+	private String remove_spaces(String text)
+	{
+		String text_with_no_spaces = "";
+		for (int i=0; i<text.length(); i++) 
+		{
+			if (text.charAt(i)==' ') continue;
+			text_with_no_spaces=""+text_with_no_spaces+text.charAt(i);
+		}
+		return text_with_no_spaces;
 	}
 }

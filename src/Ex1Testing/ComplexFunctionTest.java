@@ -25,8 +25,8 @@ public class ComplexFunctionTest
 		Polynom p = new Polynom(poly_str);
 		Polynom p2 = new Polynom(poly_str2);
 		ComplexFunction cf = new ComplexFunction("plus",p,p2);
-		ComplexFunction cf2 = new ComplexFunction("plus",cf,cf);
-		String check = "plus(plus(2.0x^2+2.0x^1,3.0x^2+3.0x^1),plus(2.0x^2+2.0x^1,3.0x^2+3.0x^1))";
+		ComplexFunction cf2 = new ComplexFunction("plus",p,cf);
+		String check = "plus(2.0x^2+2.0x^1,plus(2.0x^2+2.0x^1,3.0x^2+3.0x^1))";
 		assertTrue(cf.getOp().equals(Operation.Plus));
 		assertTrue(cf.left() == p);
 		assertTrue(cf.right() == p2);
@@ -63,7 +63,9 @@ public class ComplexFunctionTest
 		Polynom p2 = new Polynom(poly_str2);
 		function func = new ComplexFunction("plus",p,p2);
 		function func_copy = func.copy();
-		assertEquals(func, func_copy);
+		System.out.println(func);
+		System.out.println(func_copy);
+		assertEquals(func.toString(), func_copy.toString());
 	}
 	@Test
 	public void testEqualsObject()

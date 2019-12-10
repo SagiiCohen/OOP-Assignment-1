@@ -132,7 +132,7 @@ public boolean equals(Object obj):
 This equals method gets an object as an argument. if the given object is an instance of complex function we check both sides. if they are equal we return true, else false. if the given object is an instance of monom or polynom we check the possibility of "plus(x,x) == 2x" or "mul(x,x) == x^2" in those cases the function will return true. but in cases of a big complex function there is no real way to check every single value of x, so we will return false.
 
 Methods plus,mul,div,max,min,comp:
-we call on our private method add_new_function(function f1, String operation) which will only add new function, if the right side is null she will add the given function to it. if its not null she will make the current complex function as the new left side, and the given function as the right side.
+we call on our private method add_new_function(function f1) which will only add new function, if the right side is null she will add the given function to it. if its not null she will make the current complex function as the new left side, and the given function as the right side.
 
 public String toString():
 This method will return a string that represent this complex function we will take this.operation and this.left and this.right, 
@@ -140,5 +140,23 @@ in case the operation is Times we will return "mul", in case the operation is Di
 
 Methods right,left,getOp: 
 This methods are a simple get methods.
+
+Class: Functions_GUI:
+Constructor: public Functions_GUI():
+This constructor initiate a new ArrayList of type functions.
+
+Methods: size, isEmpty, contains, iterator, Object[] toArray(), <T> T[] toArray, add, remove, containsAll, addAll, removeAll, retainAll & clear implementations are from java.util.ArrayList, java.util.Collection & java.util.Iterator.
+
+public void initFromFile(String file):
+This method will add to our ArrayList the functions from a given file. we use FileReader & BufferReader objects to read the file lines and insert them into our array. 
+
+public void saveToFile(String file):
+This method will save our list into a file. we use FileWriter & PrintWriter objects in order to do so.
+
+public void drawFunctions(int width, int height, Range rx, Range ry, int resolution):
+This method will draw the functions inside our list using the object StdDraw and it uses the parameters given inside the argument in order to do so.
+
+public void drawFunctions(String json_file):
+This method will call the drawFunctions(with the parameters that StdDraw needs) those parameters are inside the jason file given in the argument. 
 
 Author: Sagi Cohen.

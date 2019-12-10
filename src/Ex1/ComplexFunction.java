@@ -12,6 +12,7 @@ public class ComplexFunction implements complex_function
 		this._right = null;
 		this._op = Operation.None;
 	}
+	
 	//A constructor that gets an String operation & two functions as an argument.
 	public ComplexFunction(String operation, function f1, function f2)
 	{
@@ -21,9 +22,11 @@ public class ComplexFunction implements complex_function
 		{
 		case "plus": this._op = Operation.Plus; break;
 		case "mul": this._op = Operation.Times; break;
+		case "times": this._op = Operation.Times; break;
 		case "min": this._op = Operation.Min; break;
 		case "max": this._op = Operation.Max; break;
 		case "div": this._op = Operation.Divid; break;
+		case "divid": this._op = Operation.Divid; break;
 		case "comp": this._op = Operation.Comp; break;
 		case "none": 
 		{
@@ -41,6 +44,13 @@ public class ComplexFunction implements complex_function
 		}
 		}
 	}
+	public ComplexFunction() {
+	}
+	public ComplexFunction(Operation op, function f1, function f2) 
+	{
+		this(op.toString(), f1, f2);
+	}
+
 	@Override
 	public double f(double x)
 	{
@@ -73,8 +83,15 @@ public class ComplexFunction implements complex_function
 		text = text.toLowerCase();
 		text = remove_spaces(text);
 		//We cut off the prefix "f(x)= ".
-		if(text.substring(0, 6).equals("f(x)= ")) text = text.substring(6);
-		else if(text.substring(0, 5).equals("f(x)=")) text = text.substring(5);
+		if(text.length() > 6 && text.substring(0, 6).equals("f(x)= ")) text = text.substring(6);
+		else if(text.length() > 5 && text.substring(0, 5).equals("f(x)=")) text = text.substring(5);
+		
+		//In case there is no operation and text represent only a polynom.
+		if (text.indexOf('(') == -1 && text.indexOf(')') == -1) 
+		{ 
+			function func = new Polynom (text);
+			return func;
+		}
 		//This algorithm will go over the text in a while loop and will count the open brackets and the close brackets. if we encounter a comma and the
 		//difference between them is equal to 1 then we know we are exactly at the middle of the given text which represent a function.
 		int middle = 0;
@@ -93,12 +110,6 @@ public class ComplexFunction implements complex_function
 			}
 			index++;
 		}
-		//In case there is no operation and text represent only a polynom.
-		if (text.indexOf('(') == -1 && text.indexOf(')') == -1) 
-		{ 
-			function func = new Polynom (text);
-			return func;
-		}
 		String operation = text.substring(0, text.indexOf("("));
 		function left_side = initFromString(text.substring(text.indexOf("(")+1, middle));
 		function right_side = initFromString(text.substring(middle+1, text.length()-1));
@@ -107,7 +118,9 @@ public class ComplexFunction implements complex_function
 	@Override
 	public function copy()
 	{
-		return new ComplexFunction(this._op.toString(), this._left, this._right);
+		String to_send = toString();
+		function new_func = initFromString(to_send);
+		return new_func;
 	}
 	//This method will return true if the object inside the argument is one of three possible scenarios:
 	//1.If the object is an instance of ComplexFunction and both functions and the operation is equal to the ComplexFunction that
@@ -157,38 +170,38 @@ public class ComplexFunction implements complex_function
 	@Override
 	public void plus(function f1)
 	{
+		add_new_function(f1);
 		this._op = Operation.Plus;
-		add_new_function(f1,"plus");
 	}	
 	@Override
 	public void mul(function f1) 
 	{
+		add_new_function(f1);
 		this._op = Operation.Times;
-		add_new_function(f1,"mul");
 	}
 	@Override
 	public void div(function f1)
 	{
+		add_new_function(f1);
 		this._op = Operation.Divid;
-		add_new_function(f1,"div");
 	}
 	@Override
 	public void max(function f1) 
 	{
+		add_new_function(f1);
 		this._op = Operation.Max;
-		add_new_function(f1,"max");
 	}
 	@Override
 	public void min(function f1) 
 	{
+		add_new_function(f1);
 		this._op = Operation.Min;
-		add_new_function(f1,"min");
 	}
 	@Override
 	public void comp(function f1) 
 	{
+		add_new_function(f1);
 		this._op = Operation.Comp;
-		add_new_function(f1,"comp");
 	}
 	@Override
 	public String toString()
@@ -214,11 +227,11 @@ public class ComplexFunction implements complex_function
 		return this._op;
 	}
 	//Private methods
-	private void add_new_function(function f1, String operation)
+	private void add_new_function(function f1)
 	{
 		if(this._right != null)
 		{
-			function new_left = new ComplexFunction(operation, this._left, this._right);
+			function new_left = new ComplexFunction(this.getOp().toString(), this._left, this._right);
 			this._left = new_left;
 		}
 		this._right = f1;
