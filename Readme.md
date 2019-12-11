@@ -157,6 +157,6 @@ public void drawFunctions(int width, int height, Range rx, Range ry, int resolut
 This method will draw the functions inside our list using the object StdDraw and it uses the parameters given inside the argument in order to do so.
 
 public void drawFunctions(String json_file):
-This method will call the drawFunctions(with the parameters that StdDraw needs) those parameters are inside the jason file given in the argument. 
+This method will call the drawFunctions(with the parameters that StdDraw needs) those parameters are inside the jason file given in the argument. I am using json.simple 1.1 JAR.
 
 Author: Sagi Cohen.
